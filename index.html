@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosmétia 2050</title>
+<style>
+:root{--ink:#17343b;--muted:#5b7076;--water:#167f87;--light:#e4f3f1;--sand:#f4eee3;--paper:#fcfbf7;--line:#dbe3df}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
+.wrap{width:min(1100px,calc(100% - 36px));margin:auto}.top{position:sticky;top:0;z-index:20;background:#fcfbf7f2;border-bottom:1px solid var(--line)}
+nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font-weight:900;letter-spacing:.08em;cursor:pointer}.brand span{color:var(--water)}
+.menu{display:flex;gap:6px;flex-wrap:wrap}.menu button{border:0;background:transparent;padding:9px 10px;border-radius:9px;color:var(--muted);cursor:pointer}
+.menu button.active,.menu button:hover{background:var(--light);color:var(--water)}.badge{font-size:.72rem;border:1px solid var(--line);border-radius:99px;padding:7px 10px;background:white}
+.page{display:none}.page.active{display:block}.hero{padding:82px 0;background:radial-gradient(circle at 85% 15%,#167f8726,transparent 30%)}
+.hero-grid,.two,.finance{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}.kicker{color:var(--water);font-size:.75rem;font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+h1{font-size:clamp(3rem,7vw,5.8rem);line-height:.94;letter-spacing:-.05em;margin:14px 0 22px}h1 em{color:var(--water);font-style:normal}
+h2{font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.06;margin:8px 0 18px;letter-spacing:-.03em}.lead,.intro,.card p,.panel p{color:var(--muted)}
+.lead{font-size:1.2rem;max-width:760px}.btn{border:0;border-radius:10px;padding:13px 17px;background:var(--ink);color:#fff;font-weight:800;cursor:pointer;margin:6px 8px 0 0}
+.btn.alt{background:white;color:var(--ink);border:1px solid var(--line)}.hero-card,.card,.panel{background:white;border:1px solid var(--line);border-radius:24px;padding:26px}
+.hero-card{box-shadow:0 18px 50px #17343b18}.highlight{margin-top:18px;padding:18px;border-radius:16px;background:var(--light)}
+section{padding:72px 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}.big{font-size:2rem;font-weight:900;color:var(--water)}
+.manifesto{margin-top:30px;background:var(--light);border-left:5px solid var(--water);padding:24px;border-radius:0 18px 18px 0;font-size:1.15rem;font-weight:700}
+.dark{background:var(--ink);color:white}.dark .kicker{color:#8ad6d2}.dark .intro,.dark p{color:#d1dfe1}.dark .card{background:#214149;border-color:#34555d}.dark .big{color:#8ad6d2}
+.quote{margin-top:32px;border-left:4px solid #8ad6d2;padding-left:20px;font-size:1.45rem;max-width:900px}.two{margin-top:30px}.target{background:var(--water);color:white}.target p{color:#dff2f0}
+.target strong{display:block;font-size:3rem;line-height:1;margin:10px 0}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.step{background:white;border:1px solid var(--line);border-radius:18px;padding:20px}.step b{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.tag{background:white;border:1px solid var(--line);border-radius:99px;padding:8px 11px;font-size:.84rem}
+.territory{background:#f7f3eb}.voices{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.voice{background:white;border:1px solid var(--line);border-radius:20px;padding:24px}
+.band{margin-top:30px;background:var(--ink);color:#fff;border-radius:22px;padding:26px}.band p{color:#d1dfe1}.band strong{color:#8ad6d2}
+.finance{margin-top:30px;background:var(--ink);color:#fff;border-radius:26px;padding:30px}.finance p{color:#d0dfe1}.list div{padding:11px 0;border-bottom:1px solid #ffffff2d}
+.press{background:#ddd7cb}.paper{margin-top:30px;background:#fffdf6;border:1px solid #9d978b;box-shadow:0 18px 50px #0002}.paper-top{padding:8px 18px;display:flex;justify-content:space-between;font-family:Georgia,serif;font-size:.74rem;border-bottom:1px solid #8f897d}
+.paper-name{text-align:center;padding:17px;border-bottom:5px double #292824}.paper-name h2{font-family:Georgia,serif;margin:3px 0;font-size:clamp(3rem,7vw,5rem)}
+.paper-grid{display:grid;grid-template-columns:2fr .8fr}.paper-main{padding:26px;border-right:1px solid #aaa396}.rubric{font-size:.68rem;font-weight:900;letter-spacing:.12em;color:#893e2b}
+.headline{font-family:Georgia,serif;font-size:clamp(2.3rem,5vw,4rem);line-height:1;margin:8px 0 14px}.deck{font-family:Georgia,serif;font-size:1.1rem;font-weight:700}
+.photo{height:250px;margin:18px 0;background:linear-gradient(#bfd4d2 0 42%,#96af86 42% 60%,#d8bd7f 60%)}.article{column-count:3;column-gap:20px;font-family:Georgia,serif;text-align:justify}
+.paper-side{padding:22px;background:#f5f1e7}.brief{padding:13px 0;border-bottom:1px solid #aaa396}.brief h4{font-family:Georgia,serif;margin:4px 0}.brief p{font-family:Georgia,serif;font-size:.86rem;margin:0}
+footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--muted);font-size:.83rem}
+@media(max-width:900px){.menu{display:none}.hero-grid,.two,.finance,.paper-grid{grid-template-columns:1fr}.cards,.steps,.voices{grid-template-columns:1fr}.article{column-count:1}.paper-main{border-right:0}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><nav>
+<div class="brand" data-page="home">COSMÉTIA <span>2050</span></div>
+<div class="menu">
+<button data-page="home" class="active">Accueil</button><button data-page="company">Cosmétia</button><button data-page="future">2050</button>
+<button data-page="coseco">Cos-Éco</button><button data-page="territory">Territoire</button><button data-page="press">Presse</button><button data-page="partners">Partenaires</button>
+</div><div class="badge">Cas d'étude fictif</div>
+</nav></div></div>
+
+<main>
+<div class="page active" id="home">
+<div class="hero"><div class="wrap hero-grid">
+<div><div class="kicker">Saint-Lyrien • Bassin de Lyméa • Eau • Cosmétique • Agriculture</div>
+<h1>Ici, l'eau fait vivre <em>nos produits.</em><br>Et notre territoire.</h1>
+<p class="lead">Depuis trois générations, Cosmétia fabrique à Saint-Lyrien des soins dermo-cosmétiques. Dans un territoire où l'eau devient plus rare, nous voulons continuer à produire ici : en réduisant nos propres prélèvements et en accompagnant les producteurs agricoles.</p>
+<button class="btn" data-page="coseco">Découvrir Cos-Éco</button><button class="btn alt" data-page="territory">Notre projet de territoire</button></div>
+<div class="hero-card"><div class="kicker">Notre choix</div><h3>Réduire notre empreinte eau sans déplacer le problème ailleurs.</h3>
+<p>Cosmétia ne veut ni avancer seule, ni traiter l'eau uniquement à l'échelle de son usine.</p>
+<div class="highlight"><strong>Notre ambition : inscrire la transformation de Cosmétia dans un projet de territoire.</strong><br><br>Agriculteurs, recherche, collectivités, acteurs de l'eau, services publics, habitants et entreprise doivent construire la trajectoire ensemble.</div></div>
+</div></div>
+<section><div class="wrap"><div class="kicker">Quelques repères</div><h2>Une entreprise locale, des enjeux qui dépassent les portes de l'usine</h2>
+<div class="cards"><div class="card"><div class="big">1 100</div><h3>salariés</h3><p>dont 650 à Saint-Lyrien.</p></div>
+<div class="card"><div class="big">95 000 m³</div><h3>d'eau par an</h3><p>prélevés sur le site principal.</p></div>
+<div class="card"><div class="big">8 000 t</div><h3>d'ingrédients végétaux</h3><p>dont 40 % de filières locales ou régionales.</p></div></div>
+<div class="manifesto">« Prendre soin des peaux sensibles tout en régénérant les ressources des territoires qui nous font vivre. »</div>
+</div></section></div>
+
+<div class="page" id="company"><section><div class="wrap">
+<div class="kicker">Qui sommes-nous ?</div><h2>Cosmétia, une ETI familiale de dermo-cosmétique</h2>
+<p class="intro">Entreprise familiale de troisième génération présidée par Élise Montal, Cosmétia est spécialisée dans les peaux sensibles et atopiques, la protection solaire et les produits certifiés bio.</p>
+<div class="cards"><div class="card"><div class="big">320 M€</div><h3>de chiffre d'affaires</h3><p>65 % en France et 35 % à l'export.</p></div>
+<div class="card"><div class="big">30 %</div><h3>du CA en bio</h3><p>Une composante forte du positionnement de l'entreprise.</p></div>
+<div class="card"><div class="big">40+</div><h3>pays</h3><p>avec un ancrage industriel maintenu dans le Bassin de Lyméa.</p></div></div>
+<div class="two"><div class="panel"><h3>L'eau au cœur de l'activité</h3><p>Formules, nettoyage des cuves, refroidissement, extraction végétale : l'eau intervient à tous les stades.</p></div>
+<div class="panel"><h3>Des filières végétales vulnérables</h3><p>Amande, tournesol, verveine, calendula, karité : les approvisionnements sont exposés aux aléas climatiques.</p></div></div>
+<div class="manifesto">L'objectif n'est pas de déplacer les approvisionnements dès que la ressource devient plus contrainte, mais d'adapter l'entreprise et ses filières.</div>
+</div></section></div>
+
+<div class="page" id="future"><section class="dark"><div class="wrap">
+<div class="kicker">Scénario S3 – Technologies vertes</div><h2>En 2050, la technologie nous aide. Elle ne rend pas l'eau illimitée.</h2>
+<p class="intro">Cosmétia se projette dans un futur inspiré du scénario S3 de l'ADEME : innovation, modernisation industrielle et agriculture de précision permettent de réduire les consommations unitaires, mais les tensions globales sur l'eau persistent.</p>
+<div class="cards"><div class="card"><div class="big">01</div><h3>L'usine devient plus efficace</h3><p>Recyclage, pilotage en temps réel et procédés plus sobres.</p></div>
+<div class="card"><div class="big">02</div><h3>L'agriculture évolue</h3><p>Variétés adaptées, nouvelles pratiques et irrigation plus précise.</p></div>
+<div class="card"><div class="big">03</div><h3>Le partage reste central</h3><p>Industrie, agriculture, collectivités et habitants dépendent de la même ressource.</p></div></div>
+<div class="quote">Le défi n'est donc pas seulement technique : il est territorial. Comment continuer à produire ici sans fragiliser les autres usages ?</div>
+</div></section>
+<section><div class="wrap"><div class="kicker">Nous commençons par agir chez nous</div><h2>Transformer l'usine de Saint-Lyrien</h2>
+<div class="two"><div class="panel target"><span>Objectif industriel</span><strong>−30 %</strong>de prélèvements d'eau d'ici 2031.<p>Et plus de 50 % d'eau recyclée dans les procédés.</p></div>
+<div class="panel"><h3>Les leviers</h3><p>Nettoyage des cuves, refroidissement, extraction végétale, équipements et suivi en temps réel des consommations.</p><p>Aujourd'hui, le recyclage interne n'est encore que de 12 à 15 %.</p></div></div>
+<div class="manifesto">Mais agir sur l'usine ne suffit pas : une partie de notre dépendance à l'eau se trouve dans les champs.</div>
+</div></section></div>
+
+<div class="page" id="coseco"><section style="background:linear-gradient(135deg,#e4f3f1,#f7efe3)"><div class="wrap">
+<div class="kicker">Programme expérimental</div><h2>Cos-Éco — Cultiver demain</h2>
+<p class="intro">Cosmétia souhaite lancer avec des agriculteurs volontaires un programme de recherche appliquée pour tester des cultures, variétés et pratiques compatibles avec un Bassin de Lyméa plus chaud et plus sec.</p>
+<div class="two"><div class="panel target"><h3>Moins d'eau. Des cultures adaptées. Des producteurs qui restent nos partenaires.</h3><p>Le programme teste, compare et apprend à partir de parcelles pilotes.</p></div>
+<div class="panel"><h3>Notre proposition aux producteurs</h3><p>Nous voulons continuer à acheter votre production. Plutôt que de réduire nos achats ou de chercher systématiquement ailleurs, nous vous proposons d'expérimenter ensemble.</p><p><strong>Cosmétia souhaite partager le coût, le risque et les résultats.</strong></p></div></div>
+<div class="steps"><div class="step"><b>1</b><h3>Observer</h3><p>Mesurer les besoins en eau.</p></div><div class="step"><b>2</b><h3>Expérimenter</h3><p>Tester espèces, variétés et pratiques.</p></div><div class="step"><b>3</b><h3>Comparer</h3><p>Eau, rendement, qualité et économie.</p></div><div class="step"><b>4</b><h3>Déployer</h3><p>Accompagner ce qui fonctionne.</p></div></div>
+<div class="tags"><span class="tag">Amande</span><span class="tag">Tournesol</span><span class="tag">Verveine</span><span class="tag">Calendula</span><span class="tag">Autres espèces à tester</span></div>
+<div class="band"><h3>Cos-Éco n'a pas vocation à être un programme privé isolé.</h3><p><strong>Cosmétia ne veut pas avancer seule.</strong> Les expérimentations doivent s'inscrire dans un projet de territoire cohérent avec les besoins du bassin, les autres usages de l'eau, les stratégies agricoles et les attentes des habitants.</p></div>
+</div></section></div>
+
+<div class="page" id="territory"><section><div class="wrap">
+<div class="kicker">Un projet de territoire</div><h2>L'eau ne se gère pas entreprise par entreprise</h2>
+<p class="intro">Cosmétia souhaite construire sa transformation avec les acteurs du Bassin de Lyméa et inscrire Cos-Éco dans les démarches territoriales de gestion de l'eau, notamment le PTGE.</p>
+<div class="cards"><div class="card"><div class="big">01</div><h3>Agriculteurs</h3><p>Construire des essais adaptés aux exploitations.</p></div>
+<div class="card"><div class="big">02</div><h3>Recherche</h3><p>Mesurer les performances agronomiques et hydriques.</p></div>
+<div class="card"><div class="big">03</div><h3>Acteurs de l'eau</h3><p>Garantir la cohérence avec les besoins du bassin.</p></div>
+<div class="card"><div class="big">04</div><h3>Collectivités et État</h3><p>Relier le projet aux politiques territoriales.</p></div>
+<div class="card"><div class="big">05</div><h3>Habitants</h3><p>Discuter emploi, paysage, alimentation et usages.</p></div>
+<div class="card"><div class="big">06</div><h3>Cosmétia</h3><p>Prendre sa part de l'effort et co-investir.</p></div></div>
+<div class="band"><h3>Notre ligne de conduite</h3><p>Nous ne voulons pas arriver avec une solution déjà écrite. Le programme doit rechercher ce qui fonctionne pour l'entreprise <strong>et pour le territoire</strong>.</p></div>
+</div></section>
+<section class="territory"><div class="wrap"><div class="kicker">Regards d'habitants</div><h2>Ce que le projet peut faire naître comme questions</h2>
+<div class="voices"><div class="voice"><p>« Ça renforce l'entreprise dans le territoire. Mais si les cultures changent, est-ce que nos paysages vont changer aussi ? »</p><strong>Sandrine</strong><br><small>Habitante de Saint-Lyrien</small></div>
+<div class="voice"><p>« Réduire l'eau pour produire des cosmétiques, d'accord. Mais est-ce que cela risque de se faire au détriment de la production alimentaire ? »</p><strong>Jean Pasquet</strong><br><small>Habitant du Bassin de Lyméa</small></div>
+<div class="voice"><p>« Mon papa travaille chez Cosmétia. J'espère surtout que l'usine sera encore là quand je serai grande. »</p><strong>Suzanne, 11 ans</strong><br><small>Habitante du territoire</small></div></div>
+</div></section></div>
+
+<div class="page" id="press"><section class="press"><div class="wrap">
+<div class="kicker">Presse locale fictive</div><h2>Et si Cos-Éco devenait un sujet de territoire ?</h2>
+<div class="paper"><div class="paper-top"><span>JEUDI 12 SEPTEMBRE 2050</span><span>ÉDITION DU BASSIN DE LYMÉA</span><span>1,80 €</span></div>
+<div class="paper-name"><small>Depuis 1928, les nouvelles d'ici</small><h2>Le Réveil du Bassin</h2><em>L'eau, la terre, les gens</em></div>
+<div class="paper-grid"><main class="paper-main"><div class="rubric">EAU • AGRICULTURE • ÉCONOMIE</div>
+<div class="headline">Cosmétia et les agriculteurs veulent continuer à produire ici</div>
+<p class="deck">Face à une ressource en eau plus contrainte, l'entreprise lance des expérimentations agricoles. Elle insiste : le projet ne pourra avancer qu'avec les autres acteurs du bassin.</p>
+<div class="photo"></div>
+<div class="article"><p>À Saint-Lyrien, l'eau est devenue une donnée centrale de l'activité économique. Industrie, agriculture, collectivités et habitants doivent composer avec une ressource plus contrainte.</p>
+<p>Cosmétia vient d'annoncer Cos-Éco, un programme destiné à tester avec des producteurs locaux des cultures et pratiques moins dépendantes de l'eau.</p>
+<p>L'entreprise affirme vouloir éviter une solution plus simple : déplacer progressivement ses approvisionnements vers d'autres territoires.</p>
+<p>Elle poursuit en parallèle la transformation de son site industriel afin de réduire ses prélèvements et développer le recyclage.</p>
+<p>Mais le groupe insiste : Cos-Éco n'a pas vocation à devenir un programme privé isolé. Les essais doivent être discutés avec les agriculteurs, les collectivités, les acteurs de l'eau et la recherche.</p>
+<p>Cosmétia recherche désormais des partenaires scientifiques, publics et financiers pour accompagner les premières parcelles pilotes.</p></div></main>
+<aside class="paper-side"><h3>Dans l'actualité</h3><div class="brief"><div class="rubric">PAYSAGES</div><h4>De nouvelles cultures vont-elles changer le visage du bassin ?</h4><p>La question entre dans le débat local.</p></div>
+<div class="brief"><div class="rubric">ALIMENTATION</div><h4>Cosmétique et alimentation : comment partager les terres ?</h4><p>Les premiers essais devront aussi documenter cet enjeu.</p></div>
+<div class="brief"><div class="rubric">EMPLOI</div><h4>Cosmétia veut rester à Saint-Lyrien</h4><p>650 personnes travaillent aujourd'hui sur le site principal.</p></div></aside></div></div>
+<p style="font-size:.76rem;text-align:center;color:#625f58">Le Réveil du Bassin et ses articles sont fictifs et constituent des supports de prospective.</p>
+</div></section></div>
+
+<div class="page" id="partners"><section><div class="wrap">
+<div class="kicker">Passer de l'idée à l'expérimentation</div><h2>Nous cherchons des partenaires pour construire les premières parcelles pilotes</h2>
+<p class="intro">Le financement recherché doit permettre de tester, mesurer et apprendre, sans faire porter le coût et le risque des essais sur les seuls agriculteurs.</p>
+<div class="finance"><div><h3>Pourquoi financer Cos-Éco ?</h3><p>Pour vérifier qu'une filière cosmétique locale peut rester productive dans un territoire où l'eau devient plus rare.</p><p>Cosmétia souhaite co-investir avec des acteurs publics, scientifiques et privés, dans une logique de projet de territoire.</p></div>
+<div class="list"><div><strong>Installer les parcelles pilotes</strong></div><div><strong>Tester plusieurs espèces ou variétés</strong></div><div><strong>Mesurer les consommations d'eau</strong></div><div><strong>Évaluer rendement, qualité et viabilité économique</strong></div><div><strong>Partager le risque avec les exploitants</strong></div><div><strong>Diffuser les résultats dans le bassin</strong></div></div></div>
+</div></section></div>
+</main>
+
+<footer><div class="wrap"><strong>Cosmétia 2050 – Cos-Éco</strong><br>Cas d'étude fictif. Les entreprises, lieux, témoignages et supports de presse sont utilisés dans le cadre d'un exercice prospectif.</div></footer>
+
+<script>
+const pages=[...document.querySelectorAll('.page')];
+function show(id){
+  if(!document.getElementById(id)) id='home';
+  pages.forEach(p=>p.classList.toggle('active',p.id===id));
+  document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  history.replaceState(null,'','#'+id);
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-page]').forEach(el=>el.addEventListener('click',()=>show(el.dataset.page)));
+window.addEventListener('hashchange',()=>show(location.hash.slice(1)||'home'));
+show(location.hash.slice(1)||'home');
+</script>
+</body>
+</html>
