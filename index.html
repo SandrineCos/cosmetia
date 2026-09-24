@@ -338,6 +338,184 @@ section{padding:68px 0}
 .brief h4{font-family:Georgia,serif;margin:4px 0}
 .brief p{font: .86rem Georgia,serif;margin:0}
 
+.press-reader{
+  margin-top:28px;
+}
+.press-toolbar{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:14px;
+  flex-wrap:wrap;
+}
+.press-toolbar button{
+  border:1px solid #6e675b;
+  background:#fffdf6;
+  color:#292824;
+  padding:9px 14px;
+  border-radius:5px;
+  font-family:Georgia,serif;
+  font-weight:700;
+  cursor:pointer;
+}
+.press-toolbar button.active{
+  background:#292824;
+  color:#fffdf6;
+}
+.newspaper-page{display:none}
+.newspaper-page.active{display:block}
+.front-grid{
+  display:grid;
+  grid-template-columns:2.15fr .85fr;
+}
+.front-main{
+  padding:22px 25px 28px;
+  border-right:1px solid #aaa396;
+}
+.front-side{
+  padding:18px;
+  background:#f5f1e7;
+}
+.paper-section-line{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  border-top:3px solid #292824;
+  border-bottom:1px solid #777064;
+  padding:6px 0;
+  margin:8px 0 13px;
+  font:700 .68rem Georgia,serif;
+  letter-spacing:.09em;
+}
+.front-headline{
+  font:700 clamp(2.8rem,6vw,5.3rem)/.94 Georgia,serif;
+  letter-spacing:-.045em;
+  margin:8px 0 14px;
+  color:#24231f;
+}
+.front-deck{
+  font:700 1.15rem/1.42 Georgia,serif;
+  max-width:900px;
+}
+.front-byline{
+  font:700 .76rem Georgia,serif;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  border-bottom:1px solid #aaa396;
+  padding-bottom:11px;
+  margin-bottom:13px;
+}
+.front-excerpt{
+  columns:2;
+  column-gap:22px;
+  font-family:Georgia,serif;
+  text-align:justify;
+}
+.front-excerpt p{margin-top:0}
+.read-article{
+  width:100%;
+  margin-top:14px;
+  border:2px solid #292824;
+  background:#292824;
+  color:white;
+  padding:12px 14px;
+  cursor:pointer;
+  font:700 1rem Georgia,serif;
+}
+.read-article:hover{background:#4a463f}
+.local-story{
+  padding:13px 0;
+  border-bottom:1px solid #aaa396;
+}
+.local-story:last-child{border-bottom:0}
+.local-story .rubric{margin-bottom:3px}
+.local-story h4{
+  font:700 1.05rem/1.08 Georgia,serif;
+  margin:3px 0 6px;
+  color:#292824;
+}
+.local-story p{
+  font:.84rem/1.35 Georgia,serif;
+  margin:0;
+}
+.page-two-grid{
+  display:grid;
+  grid-template-columns:2.25fr .75fr;
+}
+.article-page-main{
+  padding:24px 28px 30px;
+  border-right:1px solid #aaa396;
+}
+.article-page-side{
+  padding:20px;
+  background:#f5f1e7;
+}
+.article-kicker{
+  font:700 .7rem Georgia,serif;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  border-top:3px solid #292824;
+  padding-top:7px;
+}
+.article-title{
+  font:700 clamp(2.4rem,5.1vw,4.5rem)/.98 Georgia,serif;
+  margin:8px 0 12px;
+  color:#24231f;
+}
+.article-subtitle{
+  font:700 1.12rem/1.45 Georgia,serif;
+  margin-bottom:12px;
+}
+.article-meta{
+  font:.76rem Georgia,serif;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  border-top:1px solid #aaa396;
+  border-bottom:1px solid #aaa396;
+  padding:7px 0;
+  margin-bottom:15px;
+}
+.article-body{
+  column-count:3;
+  column-gap:22px;
+  font:1rem/1.55 Georgia,serif;
+  text-align:justify;
+}
+.article-body p{margin-top:0}
+.pullquote{
+  column-span:all;
+  margin:8px 0 18px;
+  padding:15px 18px;
+  border-top:2px solid #292824;
+  border-bottom:2px solid #292824;
+  font:700 1.35rem/1.35 Georgia,serif;
+  text-align:center;
+}
+.page-number{
+  text-align:right;
+  font:700 .7rem Georgia,serif;
+  padding-top:8px;
+}
+.back-to-front{
+  width:100%;
+  border:1px solid #292824;
+  background:#fffdf6;
+  color:#292824;
+  padding:9px;
+  cursor:pointer;
+  font:700 .9rem Georgia,serif;
+  margin-top:15px;
+}
+@media(max-width:950px){
+  .front-grid,.page-two-grid{grid-template-columns:1fr}
+  .front-main,.article-page-main{
+    border-right:0;
+    border-bottom:1px solid #aaa396
+  }
+  .front-excerpt,.article-body{columns:1}
+}
+
+
 footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);font-size:.83rem;background:white}
 
 /* image modal */
@@ -895,41 +1073,218 @@ footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);f
   <section class="press-bg">
     <div class="wrap">
       <div class="kicker">Presse locale fictive</div>
-      <h2>Et si Cos-Éco devenait un sujet de territoire ?</h2>
+      <h2>Le Réveil du Bassin</h2>
+      <p class="intro">
+        Une une locale fictive, puis l'article complet consacré au partenariat porté par Cosmétia.
+      </p>
 
-      <div class="paper">
-        <div class="paper-top"><span>JEUDI 12 SEPTEMBRE 2050</span><span>ÉDITION DU BASSIN DE LIMAY</span><span>1,80 €</span></div>
-        <div class="paper-name"><small>Depuis 1928, les nouvelles d'ici</small><h2>Le Réveil du Bassin</h2><em>L'eau, la terre, les gens</em></div>
+      <div class="press-reader">
+        <div class="press-toolbar">
+          <button class="active" type="button" data-paper-page="front">Page 1 — La une</button>
+          <button type="button" data-paper-page="article">Page 2 — L'article</button>
+        </div>
 
-        <div class="paper-grid">
-          <main class="paper-main">
-            <div class="rubric">EAU • AGRICULTURE • ÉCONOMIE</div>
-            <div class="headline">Cosmétia et les agriculteurs veulent continuer à produire ici</div>
-            <p class="deck">
-              Face à une ressource en eau plus contrainte, l'entreprise lance des expérimentations agricoles.
-              Elle insiste : le projet ne pourra avancer qu'avec les autres acteurs du bassin.
-            </p>
+        <!-- PAGE 1 -->
+        <div class="paper newspaper-page active" id="paper-front">
+          <div class="paper-top">
+            <span>JEUDI 24 SEPTEMBRE 2026</span>
+            <span>ÉDITION DU BASSIN DE LIMAY</span>
+            <span>1,80 €</span>
+          </div>
 
-            <div class="article">
-              <p>À Saint-Lyrien, l'eau est devenue une donnée centrale de l'activité économique. Industrie, agriculture, collectivités et habitants doivent composer avec une ressource plus contrainte.</p>
-              <p>Cosmétia vient d'annoncer le lancement du GIP Cos-Éco, destiné à tester avec des producteurs locaux des cultures et des pratiques moins dépendantes de l'eau.</p>
-              <p>L'entreprise affirme vouloir éviter une solution plus simple : déplacer progressivement ses approvisionnements vers d'autres territoires.</p>
-              <p>Elle poursuit en parallèle la transformation de son site industriel afin de réduire ses prélèvements et développer le recyclage interne.</p>
-              <p>Mais le groupe insiste : Cos-Éco n'a pas vocation à devenir un programme privé isolé. Les essais doivent être construits avec les agriculteurs, les collectivités, les acteurs de l'eau et la recherche.</p>
-              <p>Cosmétia recherche désormais des partenaires scientifiques, publics et financiers pour accompagner les premières parcelles pilotes.</p>
-            </div>
-          </main>
+          <div class="paper-name">
+            <small>Depuis 1928, les nouvelles d'ici</small>
+            <h2>Le Réveil du Bassin</h2>
+            <em>L'eau, la terre, les gens</em>
+          </div>
 
-          <aside class="paper-side">
-            <h3>Dans l'actualité</h3>
-            <div class="brief"><div class="rubric">PAYSAGES</div><h4>De nouvelles cultures vont-elles changer le visage du bassin ?</h4><p>La question entre dans le débat local.</p></div>
-            <div class="brief"><div class="rubric">ALIMENTATION</div><h4>Cosmétique et alimentation : comment partager les terres ?</h4><p>Les premiers essais devront aussi documenter cet enjeu.</p></div>
-            <div class="brief"><div class="rubric">EMPLOI</div><h4>Cosmétia veut rester à Saint-Lyrien</h4><p>650 personnes travaillent aujourd'hui sur le site principal.</p></div>
-          </aside>
+          <div class="front-grid">
+            <main class="front-main">
+              <div class="paper-section-line">
+                <span>ÉCONOMIE LOCALE</span>
+                <span>ENVIRONNEMENT</span>
+                <span>AGRICULTURE</span>
+              </div>
+
+              <div class="rubric">À LA UNE</div>
+              <div class="front-headline">Cosmétia veut produire ici demain — avec les agriculteurs</div>
+
+              <p class="front-deck">
+                L'entreprise familiale lance le GIP Cos-Éco avec des producteurs, des chercheurs et les acteurs de l'eau.
+                Objectif : tester des cultures et des pratiques moins dépendantes de l'eau sans rompre les partenariats agricoles du bassin.
+              </p>
+
+              <div class="front-byline">Par la rédaction du Réveil du Bassin — Limay</div>
+
+              <div class="front-excerpt">
+                <p>
+                  Cosmétia, entreprise familiale de dermo-cosmétique implantée depuis trois générations dans le bassin de Limay,
+                  veut réduire l'empreinte eau de son usine mais aussi celle de ses filières végétales.
+                </p>
+                <p>
+                  L'entreprise annonce la création du GIP Cos-Éco, pensé comme un programme collectif :
+                  les expérimentations doivent associer agriculteurs, recherche, acteurs de l'eau et partenaires publics.
+                </p>
+                <p>
+                  Les premières parcelles pilotes doivent permettre de mesurer concrètement les économies d'eau,
+                  les rendements, la qualité des ingrédients et les conséquences économiques pour les exploitants.
+                </p>
+              </div>
+
+              <button class="read-article" type="button" data-paper-go="article">Lire l'article en page 2 →</button>
+            </main>
+
+            <aside class="front-side">
+              <h3 style="font-family:Georgia,serif;margin-top:0">Ailleurs dans le bassin</h3>
+
+              <div class="local-story">
+                <div class="rubric">VIE LOCALE</div>
+                <h4>Le marché du samedi retrouvera la place des Tilleuls</h4>
+                <p>Les commerçants réinstalleront leurs étals au centre-ville à partir du mois prochain.</p>
+              </div>
+
+              <div class="local-story">
+                <div class="rubric">ÉCOLES</div>
+                <h4>La kermesse intercommunale se prépare</h4>
+                <p>Parents d'élèves et associations recherchent encore des bénévoles pour les stands.</p>
+              </div>
+
+              <div class="local-story">
+                <div class="rubric">TRAVAUX</div>
+                <h4>Le pont des Saules fermé deux nuits la semaine prochaine</h4>
+                <p>Une déviation sera mise en place pendant les opérations d'entretien.</p>
+              </div>
+
+              <div class="local-story">
+                <div class="rubric">SPORT</div>
+                <h4>Le club de handball ouvre sa saison à domicile</h4>
+                <p>Les seniors reçoivent Montreval samedi soir au gymnase municipal.</p>
+              </div>
+
+              <div class="local-story">
+                <div class="rubric">PATRIMOINE</div>
+                <h4>Les vendanges citoyennes reviennent au coteau de la Chapelle</h4>
+                <p>Une matinée de récolte ouverte aux habitants est organisée dimanche.</p>
+              </div>
+            </aside>
+          </div>
+
+          <div class="page-number">PAGE 1</div>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="paper newspaper-page" id="paper-article">
+          <div class="paper-top">
+            <span>JEUDI 24 SEPTEMBRE 2026</span>
+            <span>LE RÉVEIL DU BASSIN</span>
+            <span>ÉCONOMIE • PAGE 2</span>
+          </div>
+
+          <div class="paper-name" style="padding:9px 16px">
+            <h2 style="font-size:clamp(2.3rem,5vw,3.8rem)">Le Réveil du Bassin</h2>
+          </div>
+
+          <div class="page-two-grid">
+            <main class="article-page-main">
+              <div class="article-kicker">Eau • agriculture • économie locale</div>
+              <div class="article-title">Cosmétia et les agriculteurs veulent continuer à produire ici</div>
+
+              <p class="article-subtitle">
+                Face à une ressource en eau plus contrainte, l'entreprise familiale veut agir à la fois dans son usine
+                et avec ses fournisseurs agricoles. Son nouveau GIP Cos-Éco doit servir de cadre aux premières expérimentations.
+              </p>
+
+              <div class="article-meta">Saint-Lyrien — 24 septembre 2026 — Par la rédaction</div>
+
+              <div class="article-body">
+                <p>
+                  À Saint-Lyrien, l'eau est devenue une donnée centrale de l'activité économique.
+                  Industrie, agriculture, collectivités et habitants doivent composer avec une ressource plus contrainte,
+                  notamment lors des périodes de sécheresse.
+                </p>
+
+                <p>
+                  Cosmétia, entreprise familiale de dermo-cosmétique implantée dans le bassin de Limay depuis trois générations,
+                  indique vouloir réduire ses propres prélèvements tout en préservant les filières agricoles qui fournissent
+                  une partie de ses ingrédients végétaux.
+                </p>
+
+                <p>
+                  L'entreprise annonce dans ce cadre la création du GIP Cos-Éco. Le programme doit permettre de tester,
+                  avec des producteurs locaux et des équipes de recherche, des cultures, des variétés et des pratiques
+                  agronomiques moins dépendantes de l'eau.
+                </p>
+
+                <div class="pullquote">
+                  « L'objectif n'est pas de demander aux agriculteurs de changer seuls, mais de tester et d'investir ensemble. »
+                </div>
+
+                <p>
+                  Les premières parcelles pilotes doivent mesurer plusieurs dimensions : besoins en eau,
+                  rendement, qualité des ingrédients, faisabilité agronomique et viabilité économique.
+                  Cosmétia souhaite également partager le coût et le risque associés aux essais.
+                </p>
+
+                <p>
+                  Dans l'usine, l'entreprise prévoit en parallèle de poursuivre ses investissements dans le recyclage de l'eau,
+                  l'efficacité des équipements et le pilotage des consommations. Elle affiche un objectif de réduction
+                  de 30 % de ses prélèvements d'ici 2031 et de plus de 50 % d'eau recyclée dans ses procédés.
+                </p>
+
+                <p>
+                  Mais Cosmétia insiste sur un point : Cos-Éco ne doit pas devenir un programme privé isolé.
+                  Le dispositif doit être construit avec les agriculteurs, les collectivités, les acteurs de l'eau,
+                  les services publics et la recherche, afin de tenir compte des autres usages de la ressource sur le bassin.
+                </p>
+
+                <p>
+                  L'entreprise cherche désormais des partenaires capables de financer les premières expérimentations,
+                  mais aussi des chercheurs et experts prêts à consacrer du temps au programme.
+                  Les acteurs du territoire peuvent également proposer des terrains, des données, des équipements
+                  ou participer à la gouvernance du projet.
+                </p>
+
+                <p>
+                  Plusieurs questions restent ouvertes : quelles cultures tester en priorité ?
+                  Jusqu'où faire évoluer les pratiques sans fragiliser les exploitations ?
+                  Et comment éviter que les besoins de l'industrie cosmétique n'entrent en concurrence
+                  avec les productions alimentaires ? Ce sont précisément ces arbitrages que le programme devra documenter.
+                </p>
+              </div>
+            </main>
+
+            <aside class="article-page-side">
+              <div class="rubric">REPÈRES</div>
+              <h3 style="font-family:Georgia,serif">Cosmétia en bref</h3>
+
+              <div class="brief">
+                <h4>Entreprise familiale</h4>
+                <p>Troisième génération à la tête de la société.</p>
+              </div>
+              <div class="brief">
+                <h4>1 100 salariés</h4>
+                <p>Dont 650 sur le site principal de Saint-Lyrien.</p>
+              </div>
+              <div class="brief">
+                <h4>95 000 m³ d'eau par an</h4>
+                <p>Prélevés actuellement par le site industriel.</p>
+              </div>
+              <div class="brief">
+                <h4>8 000 tonnes d'ingrédients végétaux</h4>
+                <p>Amande, tournesol, verveine, calendula et autres matières premières.</p>
+              </div>
+
+              <button class="back-to-front" type="button" data-paper-go="front">← Retour à la une</button>
+            </aside>
+          </div>
+
+          <div class="page-number">PAGE 2</div>
         </div>
       </div>
 
-      <p style="font-size:.76rem;text-align:center;color:#625f58">Le Réveil du Bassin et ses articles sont fictifs et constituent des supports de prospective.</p>
+      <p style="font-size:.76rem;text-align:center;color:#625f58">
+        Le Réveil du Bassin, les articles et les autres actualités présentés ici sont fictifs et servent de support au POC.
+      </p>
     </div>
   </section>
 </div>
@@ -979,6 +1334,27 @@ modal.addEventListener('click',(e)=>{
   if(e.target===modal || e.target.tagName==='BUTTON') modal.classList.remove('open');
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape') modal.classList.remove('open')});
+
+
+function showPaperPage(which){
+  const front=document.getElementById('paper-front');
+  const article=document.getElementById('paper-article');
+  if(!front || !article) return;
+  const showArticle = which === 'article';
+  front.classList.toggle('active', !showArticle);
+  article.classList.toggle('active', showArticle);
+  document.querySelectorAll('[data-paper-page]').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.paperPage === (showArticle ? 'article' : 'front'));
+  });
+  document.getElementById('press')?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+document.querySelectorAll('[data-paper-page]').forEach(btn=>{
+  btn.addEventListener('click',()=>showPaperPage(btn.dataset.paperPage));
+});
+document.querySelectorAll('[data-paper-go]').forEach(btn=>{
+  btn.addEventListener('click',()=>showPaperPage(btn.dataset.paperGo));
+});
 
 showPage(location.hash.slice(1)||'home');
 </script>
