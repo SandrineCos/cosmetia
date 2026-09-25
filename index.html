@@ -2067,7 +2067,7 @@ showPage(location.hash.slice(1)||'home');
    To make comments shared between all visitors, paste the Google Apps Script
    web-app URL between the quotes below. Until then, the POC runs locally in
    this browser using localStorage. */
-const COMMENTS_API_URL = "";
+const COMMENTS_API_URL = "https://script.google.com/macros/s/AKfycbzfyOqi4Se0UhAVkKqsFl_QO_W01Gr9RSN-lqoxmNVGxOmUFA1Tq_ntL363rC3mVQkocQ/exec";
 const COMMENTS_LOCAL_KEY = "cosmetia-project-comments-v1";
 const COMMENTS_LAST_POST_KEY = "cosmetia-project-comments-last-post";
 const COMMENTS_MAX = 500;
@@ -2134,14 +2134,48 @@ function renderComments(items){
     </article>`).join('');
   commentList.querySelectorAll('[data-report-id]').forEach(btn=>btn.addEventListener('click',()=>reportComment(btn.dataset.reportId)));
 }
+function jsonpRequest(url, callbackName){
+  return new Promise((resolve,reject)=>{
+    const cb='cosmetia_cb_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    const script=document.createElement('script');
+    const timer=setTimeout(()=>{
+      cleanup();
+      reject(new Error('Délai dépassé.'));
+    },10000);
+
+    function cleanup(){
+      clearTimeout(timer);
+      try{ delete window[cb]; }catch(e){ window[cb]=undefined; }
+      script.remove();
+    }
+
+    window[cb]=(data)=>{
+      cleanup();
+      resolve(data);
+    };
+
+    script.onerror=()=>{
+      cleanup();
+      reject(new Error('Chargement impossible.'));
+    };
+
+    script.src=url + (url.includes('?')?'&':'?') +
+      'action=list&callback=' + encodeURIComponent(cb) +
+      '&ts=' + Date.now();
+    document.head.appendChild(script);
+  });
+}
+
 async function loadComments(){
   if(!commentList) return;
-  if(COMMENTS_API_URL){
+
+  if(COMMENTS_API_URL && !COMMENTS_API_URL.startsWith('__URL_')){
     try{
-      const res=await fetch(COMMENTS_API_URL+'?action=list&ts='+Date.now(),{cache:'no-store'});
-      if(!res.ok) throw new Error('load');
-      const data=await res.json();
+      const data=await jsonpRequest(COMMENTS_API_URL);
+      if(!data || !data.ok) throw new Error(data?.error || 'Chargement impossible.');
       renderComments(Array.isArray(data.comments)?data.comments:[]);
+      feedbackStatus.textContent='';
+      feedbackStatus.className='feedback-status';
       return;
     }catch(e){
       feedbackStatus.textContent='Impossible de charger les remarques pour le moment.';
@@ -2149,19 +2183,59 @@ async function loadComments(){
       return;
     }
   }
+
   renderComments(getLocalComments());
 }
-async function publishComment(data){
-  if(COMMENTS_API_URL){
-    const res=await fetch(COMMENTS_API_URL,{
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify({action:'comment',...data})
+function postToGoogle(data){
+  return new Promise((resolve)=>{
+    const iframeName='cosmetia_post_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    const iframe=document.createElement('iframe');
+    iframe.name=iframeName;
+    iframe.style.display='none';
+    document.body.appendChild(iframe);
+
+    const form=document.createElement('form');
+    form.method='POST';
+    form.action=COMMENTS_API_URL;
+    form.target=iframeName;
+    form.style.display='none';
+
+    Object.entries(data).forEach(([key,value])=>{
+      const input=document.createElement('input');
+      input.type='hidden';
+      input.name=key;
+      input.value=String(value ?? '');
+      form.appendChild(input);
     });
-    const json=await res.json();
-    if(!json.ok) throw new Error(json.error || 'Publication impossible.');
-    return json.comment;
+
+    document.body.appendChild(form);
+
+    let resolved=false;
+    const finish=()=>{
+      if(resolved) return;
+      resolved=true;
+      setTimeout(()=>{
+        form.remove();
+        iframe.remove();
+      },300);
+      resolve();
+    };
+
+    iframe.addEventListener('load',finish,{once:true});
+    form.submit();
+    setTimeout(finish,1800);
+  });
+}
+
+async function publishComment(data){
+  if(COMMENTS_API_URL && !COMMENTS_API_URL.startsWith('__URL_')){
+    await postToGoogle({action:'comment',...data});
+    // The POST response is cross-origin and intentionally loaded in a hidden iframe.
+    // Reload the shared list afterwards using JSONP.
+    await new Promise(r=>setTimeout(r,900));
+    return null;
   }
+
   const comments=getLocalComments();
   const duplicate=comments.some(c=>normalizeText(c.message).toLowerCase()===normalizeText(data.message).toLowerCase());
   if(duplicate) throw new Error('Cette remarque a déjà été publiée.');
@@ -2176,17 +2250,18 @@ async function publishComment(data){
 }
 async function reportComment(id){
   if(!confirm('Signaler cette remarque ? Elle sera masquée.')) return;
-  if(COMMENTS_API_URL){
+
+  if(COMMENTS_API_URL && !COMMENTS_API_URL.startsWith('__URL_')){
     try{
-      await fetch(COMMENTS_API_URL,{
-        method:'POST',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify({action:'report',id})
-      });
+      await postToGoogle({action:'report',id});
+      await new Promise(r=>setTimeout(r,700));
       await loadComments();
-    }catch(e){alert('Le signalement n’a pas pu être envoyé.');}
+    }catch(e){
+      alert('Le signalement n’a pas pu être envoyé.');
+    }
     return;
   }
+
   const comments=getLocalComments().map(c=>c.id===id?{...c,reported:true}:c);
   setLocalComments(comments);
   renderComments(comments);
