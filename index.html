@@ -296,7 +296,7 @@ section{padding:68px 0}
   outline-offset:3px;
 }
 .story-card:hover{transform:translateY(-3px)}
-.story-card img{display:block;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover}
+.story-card img{display:block;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover;cursor:pointer}
 .story-card.corrected img{object-fit:cover}
 .story-caption{
   padding:9px 12px;background:white;font-weight:900;text-align:center;color:var(--forest2)
@@ -1841,6 +1841,86 @@ const infoContent={
   "territory-cosmetia":{title:"Le rôle de Cosmétia",body:`<p>Cosmétia commence par réduire ses propres consommations, finance une partie de l'expérimentation et s'engage à maintenir le partenariat avec les producteurs. L'entreprise n'arrive pas avec une solution déjà écrite : elle co-investit dans sa construction.</p>`}
 };
 
+
+
+Object.assign(infoContent,{
+  "story-step1":{
+    title:"1. Un partenariat à préserver",
+    imageFromCard:true,
+    body:`<span class="story-detail-kicker">Le point de départ</span>
+          <p>Cosmétia et ses producteurs travaillent déjà ensemble : l'entreprise achète les productions agricoles utilisées dans ses ingrédients cosmétiques.</p>
+          <p>En cas de déficit hydrique, la relation doit pouvoir être réexaminée sans remettre en cause le partenariat. L'objectif est donc d'<strong>anticiper</strong> plutôt que d'attendre une crise.</p>
+          <ul>
+            <li>maintenir une relation durable avec les producteurs ;</li>
+            <li>réduire ensemble la dépendance à l'eau ;</li>
+            <li>continuer à produire dans le territoire.</li>
+          </ul>`
+  },
+  "story-step2":{
+    title:"2. On avance ensemble",
+    imageFromCard:true,
+    body:`<span class="story-detail-kicker">Une responsabilité partagée</span>
+          <p>Cosmétia ne veut pas demander aux agriculteurs de réduire seuls leur consommation d'eau.</p>
+          <p>Cette étape pose le principe du projet : <strong>les changements sont construits ensemble</strong>, en tenant compte des contraintes agricoles comme des besoins de l'entreprise.</p>
+          <ul>
+            <li>définir ensemble ce qu'il est possible de tester ;</li>
+            <li>partager les efforts, les risques et les résultats ;</li>
+            <li>préserver la qualité des ingrédients et l'équilibre économique des exploitations.</li>
+          </ul>`
+  },
+  "story-step3":{
+    title:"3. Une situation sous tension",
+    imageFromCard:true,
+    body:`<span class="story-detail-kicker">Pourquoi agir ?</span>
+          <p>L'usine et les cultures dépendent de la même ressource. Lorsque l'eau devient plus rare, <strong>les deux côtés du partenariat sont fragilisés</strong>.</p>
+          <ul>
+            <li>les cultures peuvent nécessiter davantage d'irrigation ;</li>
+            <li>le site industriel peut être soumis à des restrictions ;</li>
+            <li>les approvisionnements et la production deviennent plus vulnérables.</li>
+          </ul>
+          <p>Cos-Éco cherche à réduire cette vulnérabilité avant qu'elle ne conduise à des ruptures.</p>`
+  },
+  "story-step4":{
+    title:"4. Le GIP Cos-Éco",
+    imageFromCard:true,
+    ctaPage:"gip",
+    ctaLabel:"Découvrir le GIP Cos-Éco",
+    body:`<span class="story-detail-kicker">Passer à l'expérimentation</span>
+          <p>Le GIP Cos-Éco réunit les acteurs nécessaires pour transformer le diagnostic en solutions concrètes.</p>
+          <ul>
+            <li><strong>les agriculteurs</strong> accueillent et construisent les essais ;</li>
+            <li><strong>la recherche</strong> établit les protocoles et mesure les résultats ;</li>
+            <li><strong>les acteurs de l'eau</strong> relient le projet aux contraintes du bassin ;</li>
+            <li><strong>Cosmétia</strong> co-investit et réduit parallèlement ses propres consommations.</li>
+          </ul>`
+  },
+  "story-step5":{
+    title:"5. Des efforts partagés",
+    imageFromCard:true,
+    body:`<span class="story-detail-kicker">Chacun prend sa part</span>
+          <p>La réduction de l'eau repose sur plusieurs leviers complémentaires.</p>
+          <ul>
+            <li><strong>à l'usine :</strong> procédés plus sobres et davantage de recyclage de l'eau ;</li>
+            <li><strong>dans les champs :</strong> irrigation, variétés et pratiques agricoles adaptées ;</li>
+            <li><strong>dans le partenariat :</strong> partage du coût et du risque des expérimentations.</li>
+          </ul>
+          <p>L'objectif est d'obtenir une baisse globale des besoins en eau sans transférer tout l'effort sur un seul acteur.</p>`
+  },
+  "story-step6":{
+    title:"6. Rejoignez l'expérimentation",
+    imageFromCard:true,
+    ctaPage:"join",
+    ctaLabel:"Voir comment participer",
+    body:`<span class="story-detail-kicker">Ouvrir le projet</span>
+          <p>Cos-Éco a besoin de nouveaux participants pour tester, mesurer et financer les solutions.</p>
+          <ul>
+            <li>agriculteurs volontaires pour accueillir des essais ;</li>
+            <li>chercheurs et experts souhaitant donner du temps ;</li>
+            <li>partenaires pouvant financer une partie du programme ;</li>
+            <li>acteurs du territoire souhaitant contribuer à la démarche.</li>
+          </ul>`
+  }
+});
 
 Object.assign(infoContent,{
   "gip-observer":{
