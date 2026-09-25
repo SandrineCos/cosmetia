@@ -57,6 +57,60 @@ button{font:inherit}
   padding:10px 11px;border-radius:10px;cursor:pointer;font-weight:700;font-size:.87rem
 }
 .menu button:hover,.menu button.active{background:var(--leaf-light);color:var(--forest)}
+
+.nav-dropdown{position:relative}
+.nav-dropdown summary{
+  list-style:none;cursor:pointer;padding:10px 11px;border-radius:10px;
+  font-weight:700;font-size:.87rem;color:var(--ink);user-select:none
+}
+.nav-dropdown summary::-webkit-details-marker{display:none}
+.nav-dropdown summary:hover,.nav-dropdown[open] summary,.nav-dropdown.has-active summary{
+  background:var(--leaf-light);color:var(--forest)
+}
+.dropdown-menu{
+  position:absolute;top:calc(100% + 7px);left:0;min-width:230px;background:white;
+  border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 38px rgba(21,79,55,.17);
+  padding:7px;z-index:100
+}
+.dropdown-menu button{display:block;width:100%;text-align:left;padding:11px 12px;border-radius:9px;white-space:nowrap}
+
+.info-card{
+  position:relative;cursor:pointer;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+  padding-bottom:46px !important
+}
+.info-card:hover,.info-card:focus{
+  transform:translateY(-3px);box-shadow:0 13px 28px rgba(21,79,55,.13);border-color:var(--forest);outline:none
+}
+.info-card::after{
+  content:"En savoir plus  +";position:absolute;left:22px;bottom:17px;font-size:.78rem;font-weight:900;color:var(--forest)
+}
+
+.process-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;margin-top:30px;align-items:stretch}
+.process-node{position:relative;border:2px solid var(--forest);border-radius:18px;padding:19px 18px;background:white}
+.process-node:not(:last-child)::after{
+  content:"→";position:absolute;right:-29px;top:50%;transform:translateY(-50%);color:var(--forest);font-weight:900;font-size:2rem
+}
+.process-node b{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--forest);color:white;margin-bottom:9px}
+.process-node p{color:var(--muted);font-size:.92rem;margin-bottom:0}
+
+.info-modal{
+  display:none;position:fixed;inset:0;z-index:220;background:rgba(9,35,25,.78);
+  align-items:center;justify-content:center;padding:22px
+}
+.info-modal.open{display:flex}
+.info-dialog{
+  position:relative;width:min(680px,96vw);max-height:86vh;overflow:auto;background:var(--paper);
+  border-radius:22px;border:3px solid var(--forest);box-shadow:0 24px 70px rgba(0,0,0,.26);padding:30px 32px
+}
+.info-dialog h3{margin:0 42px 12px 0;font-size:1.65rem;color:var(--forest2)}
+.info-dialog p{color:var(--muted);margin:0 0 12px}
+.info-dialog ul{margin:10px 0 0;padding-left:20px;color:var(--muted)}
+.info-dialog li{margin:7px 0}
+.info-close{
+  position:absolute;right:15px;top:15px;width:38px;height:38px;border:0;border-radius:50%;
+  background:var(--leaf-light);color:var(--forest2);font-size:1.35rem;font-weight:900;cursor:pointer
+}
+
 .contact-chip{
   white-space:nowrap;background:var(--forest);color:white;border-radius:10px;
   padding:10px 15px;font-weight:800;font-size:.84rem
@@ -626,6 +680,14 @@ footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);f
     flex:0 0 auto;
     white-space:nowrap
   }
+  .nav-dropdown{flex:0 0 auto}
+  .dropdown-menu{
+    position:fixed;left:16px;right:16px;top:112px;min-width:0;max-height:70vh;overflow:auto
+  }
+  .process-flow{grid-template-columns:1fr;gap:28px}
+  .process-node:not(:last-child)::after{
+    content:"↓";right:auto;left:50%;top:auto;bottom:-29px;transform:translateX(-50%)
+  }
   .hero-grid,.two,.image-feature,.paper-grid{grid-template-columns:1fr}
   .cards,.story-grid,.steps,.voices,.join-grid{grid-template-columns:1fr}
   .article{column-count:1}
@@ -645,10 +707,17 @@ footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);f
 
     <div class="menu">
       <button class="active" data-page="home">Accueil</button>
-      <button data-page="company">Cosmétia</button>
-      <button data-page="future">2050 : l'enjeu eau</button>
-      <button data-page="gip">Le GIP Cos-Éco</button>
-      <button data-page="territory">Projet de territoire</button>
+
+      <details class="nav-dropdown">
+        <summary>Découvrir <span aria-hidden="true">▾</span></summary>
+        <div class="dropdown-menu">
+          <button data-page="company">Cosmétia</button>
+          <button data-page="future">2050 : l'enjeu eau</button>
+          <button data-page="gip">Le GIP Cos-Éco</button>
+          <button data-page="territory">Le projet de territoire</button>
+        </div>
+      </details>
+
       <button data-page="join">Rejoignez-nous</button>
       <button data-page="press">Presse</button>
     </div>
@@ -748,8 +817,8 @@ footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);f
         <div class="card sun"><div class="big">40+</div><h3>pays de commercialisation</h3><p>avec un ancrage industriel maintenu à Saint-Lyrien.</p></div>
       </div>
       <div class="two">
-        <div class="panel"><h3>L'eau au cœur de l'activité</h3><p>Elle intervient dans les formules, le nettoyage des cuves, le refroidissement et l'extraction végétale. Le recyclage interne n'atteint aujourd'hui que 12 à 15 %.</p></div>
-        <div class="panel"><h3>Des filières végétales vulnérables</h3><p>Amande, tournesol, verveine, calendula, karité : les approvisionnements sont directement exposés aux aléas climatiques.</p></div>
+        <div class="panel info-card" tabindex="0" role="button" data-info="company-water"><h3>L'eau au cœur de l'activité</h3><p>Elle intervient dans les formules, le nettoyage des cuves, le refroidissement et l'extraction végétale. Le recyclage interne n'atteint aujourd'hui que 12 à 15 %.</p></div>
+        <div class="panel info-card" tabindex="0" role="button" data-info="company-plants"><h3>Des filières végétales vulnérables</h3><p>Amande, tournesol, verveine, calendula, karité : les approvisionnements sont directement exposés aux aléas climatiques.</p></div>
       </div>
       <div class="manifesto">« Prendre soin des peaux sensibles tout en régénérant les ressources des territoires qui nous font vivre. »</div>
     </div>
@@ -768,9 +837,9 @@ footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);f
         Mais la pression globale sur l'eau reste forte.
       </p>
       <div class="cards">
-        <div class="card"><div class="big">01</div><h3>L'usine devient plus efficace</h3><p>Recyclage, pilotage en temps réel, procédés plus sobres et équipements performants.</p></div>
-        <div class="card"><div class="big">02</div><h3>L'agriculture évolue</h3><p>Variétés adaptées, pratiques agronomiques, outils de mesure et irrigation plus précise.</p></div>
-        <div class="card"><div class="big">03</div><h3>Le partage reste central</h3><p>Industrie, agriculture, collectivités et habitants utilisent toujours une ressource commune.</p></div>
+        <div class="card info-card" tabindex="0" role="button" data-info="future-factory"><div class="big">01</div><h3>L'usine devient plus efficace</h3><p>Recyclage, pilotage en temps réel, procédés plus sobres et équipements performants.</p></div>
+        <div class="card info-card" tabindex="0" role="button" data-info="future-agriculture"><div class="big">02</div><h3>L'agriculture évolue</h3><p>Variétés adaptées, pratiques agronomiques, outils de mesure et irrigation plus précise.</p></div>
+        <div class="card info-card" tabindex="0" role="button" data-info="future-sharing"><div class="big">03</div><h3>Le partage reste central</h3><p>Industrie, agriculture, collectivités et habitants utilisent toujours une ressource commune.</p></div>
       </div>
     </div>
   </section>
@@ -821,11 +890,11 @@ footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);f
         </div>
       </div>
 
-      <div class="steps">
-        <div class="step"><b>1</b><h3>Observer</h3><p>Mesurer les besoins en eau et les périodes sensibles.</p></div>
-        <div class="step"><b>2</b><h3>Expérimenter</h3><p>Tester espèces, variétés, irrigation et pratiques culturales.</p></div>
-        <div class="step"><b>3</b><h3>Comparer</h3><p>Eau, rendement, qualité, économie et impacts territoriaux.</p></div>
-        <div class="step"><b>4</b><h3>Déployer</h3><p>Accompagner les solutions qui fonctionnent réellement.</p></div>
+      <div class="process-flow" aria-label="Les quatre étapes du GIP Cos-Éco">
+        <div class="process-node"><b>1</b><h3>Observer</h3><p>Mesurer les besoins en eau et identifier les périodes les plus sensibles.</p></div>
+        <div class="process-node"><b>2</b><h3>Expérimenter</h3><p>Tester sur des parcelles pilotes des espèces, variétés, niveaux d'irrigation et pratiques culturales.</p></div>
+        <div class="process-node"><b>3</b><h3>Comparer</h3><p>Évaluer ensemble l'eau consommée, le rendement, la qualité, la viabilité économique et les effets territoriaux.</p></div>
+        <div class="process-node"><b>4</b><h3>Déployer</h3><p>Retenir les solutions qui fonctionnent réellement et organiser leur diffusion dans la filière.</p></div>
       </div>
 
       <div class="band">
@@ -848,12 +917,12 @@ footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);f
       </p>
 
       <div class="cards">
-        <div class="card green"><div class="big">01</div><h3>Agriculteurs</h3><p>Des essais compatibles avec la réalité économique et agronomique des exploitations.</p></div>
-        <div class="card blue"><div class="big">02</div><h3>Recherche</h3><p>Des protocoles robustes pour mesurer les effets réels sur l'eau, les sols et les rendements.</p></div>
-        <div class="card sun"><div class="big">03</div><h3>Acteurs de l'eau</h3><p>Une cohérence avec les usages, les objectifs du bassin et les politiques publiques.</p></div>
-        <div class="card pink"><div class="big">04</div><h3>Collectivités et État</h3><p>Une articulation avec le projet de territoire et la planification locale.</p></div>
-        <div class="card lav"><div class="big">05</div><h3>Habitants</h3><p>Un débat ouvert sur les paysages, l'alimentation, l'emploi et les choix de production.</p></div>
-        <div class="card green"><div class="big">06</div><h3>Cosmétia</h3><p>Une entreprise qui prend sa part de l'effort et co-investit dans la transition.</p></div>
+        <div class="card green info-card" tabindex="0" role="button" data-info="territory-farmers"><div class="big">01</div><h3>Agriculteurs</h3><p>Des essais compatibles avec la réalité économique et agronomique des exploitations.</p></div>
+        <div class="card blue info-card" tabindex="0" role="button" data-info="territory-research"><div class="big">02</div><h3>Recherche</h3><p>Des protocoles robustes pour mesurer les effets réels sur l'eau, les sols et les rendements.</p></div>
+        <div class="card sun info-card" tabindex="0" role="button" data-info="territory-water"><div class="big">03</div><h3>Acteurs de l'eau</h3><p>Une cohérence avec les usages, les objectifs du bassin et les politiques publiques.</p></div>
+        <div class="card pink info-card" tabindex="0" role="button" data-info="territory-public"><div class="big">04</div><h3>Collectivités et État</h3><p>Une articulation avec le projet de territoire et la planification locale.</p></div>
+        <div class="card lav info-card" tabindex="0" role="button" data-info="territory-residents"><div class="big">05</div><h3>Habitants</h3><p>Un débat ouvert sur les paysages, l'alimentation, l'emploi et les choix de production.</p></div>
+        <div class="card green info-card" tabindex="0" role="button" data-info="territory-cosmetia"><div class="big">06</div><h3>Cosmétia</h3><p>Une entreprise qui prend sa part de l'effort et co-investit dans la transition.</p></div>
       </div>
 
       <div class="image-feature">
@@ -1389,6 +1458,15 @@ footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);f
   </div>
 </footer>
 
+
+<div class="info-modal" id="infoModal" aria-hidden="true">
+  <div class="info-dialog" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <button class="info-close" type="button" aria-label="Fermer">×</button>
+    <h3 id="infoTitle"></h3>
+    <div id="infoBody"></div>
+  </div>
+</div>
+
 <div class="modal" id="modal">
   <button aria-label="Fermer">×</button>
   <img id="modalImg" alt="">
@@ -1400,16 +1478,63 @@ const pages=[...document.querySelectorAll('.page')];
 function showPage(id){
   if(!document.getElementById(id)) id='home';
   pages.forEach(p=>p.classList.toggle('active',p.id===id));
-  document.querySelectorAll('.menu button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  document.querySelectorAll('.menu [data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  document.querySelectorAll('.nav-dropdown').forEach(drop=>{
+    const hasActive=[...drop.querySelectorAll('[data-page]')].some(b=>b.dataset.page===id);
+    drop.classList.toggle('has-active',hasActive);
+  });
   history.replaceState(null,'','#'+id);
   window.scrollTo(0,0);
 }
 
 document.querySelectorAll('[data-page]').forEach(el=>{
-  el.addEventListener('click',()=>showPage(el.dataset.page));
+  el.addEventListener('click',()=>{
+    showPage(el.dataset.page);
+    document.querySelectorAll('.nav-dropdown[open]').forEach(d=>d.removeAttribute('open'));
+  });
 });
 
 window.addEventListener('hashchange',()=>showPage(location.hash.slice(1)||'home'));
+
+const infoContent={
+  "company-water":{title:"L'eau au cœur de l'activité",body:`<p>L'eau intervient à plusieurs étapes de l'activité de Cosmétia : dans les formules, pour le nettoyage des cuves, le refroidissement des installations et certaines extractions végétales.</p><ul><li>Le site de Saint-Lyrien prélève environ <strong>95 000 m³ d'eau par an</strong>.</li><li>Le recyclage interne représente aujourd'hui environ <strong>12 à 15 %</strong>.</li><li>La feuille de route vise à réduire les prélèvements de <strong>30 % d'ici 2031</strong> et à dépasser <strong>50 % d'eau recyclée</strong>.</li></ul>`},
+  "company-plants":{title:"Des filières végétales vulnérables",body:`<p>Cosmétia utilise environ <strong>8 000 tonnes d'ingrédients végétaux par an</strong>. Les principales filières citées dans le cas d'étude sont l'amande, le tournesol, la verveine, le calendula et le karité.</p><ul><li>Environ <strong>40 %</strong> des approvisionnements sont locaux ou régionaux.</li><li>Les cultures sont exposées à la sécheresse, à la chaleur et à l'évolution des besoins d'irrigation.</li><li>L'enjeu de Cos-Éco est de sécuriser ces filières sans simplement déplacer l'approvisionnement vers un autre territoire.</li></ul>`},
+  "future-factory":{title:"01 — Une usine plus efficace",body:`<p>La première partie de la trajectoire concerne ce que Cosmétia peut directement transformer sur son site industriel.</p><ul><li>Recycler davantage l'eau entre les procédés.</li><li>Optimiser le nettoyage des cuves et le refroidissement.</li><li>Mesurer les consommations en temps réel pour repérer les pertes et les usages évitables.</li><li>Viser −30 % de prélèvements d'ici 2031.</li></ul>`},
+  "future-agriculture":{title:"02 — L'agriculture évolue",body:`<p>La sobriété industrielle ne suffit pas : une partie importante de la dépendance à l'eau se situe dans les cultures qui fournissent les ingrédients végétaux.</p><ul><li>Tester des variétés plus résistantes.</li><li>Comparer différentes pratiques agronomiques et niveaux d'irrigation.</li><li>Mesurer en même temps l'eau, le rendement, la qualité et la viabilité économique.</li><li>Construire les essais avec les producteurs plutôt que leur imposer une solution.</li></ul>`},
+  "future-sharing":{title:"03 — Le partage de l'eau reste central",body:`<p>Même dans un scénario très technologique, l'eau reste une ressource commune. Les gains d'efficacité ne suppriment donc pas la nécessité d'arbitrer entre les usages.</p><ul><li>Industrie, agriculture, collectivités et habitants dépendent du même bassin.</li><li>Cos-Éco doit s'inscrire dans la gouvernance territoriale de l'eau, notamment le PTGE.</li><li>Le projet cherche une solution de territoire plutôt qu'une optimisation isolée de l'entreprise.</li></ul>`},
+  "territory-farmers":{title:"Le rôle des agriculteurs",body:`<p>Les producteurs sont des partenaires de l'expérimentation. Ils apportent la connaissance du terrain, testent les solutions et permettent d'évaluer leur faisabilité réelle.</p><p>Le principe du projet est de partager le coût, le risque et les résultats des essais.</p>`},
+  "territory-research":{title:"Le rôle de la recherche",body:`<p>Les équipes de recherche construisent les protocoles, garantissent la qualité des mesures et permettent de comparer objectivement les solutions testées : besoins en eau, rendement, qualité des ingrédients et impacts.</p>`},
+  "territory-water":{title:"Le rôle des acteurs de l'eau",body:`<p>Ils permettent de relier les expérimentations de Cos-Éco aux contraintes réelles du bassin et aux autres usages de la ressource. Leur présence évite que le projet soit pensé uniquement du point de vue de Cosmétia.</p>`},
+  "territory-public":{title:"Le rôle des collectivités et de l'État",body:`<p>Ils assurent l'articulation avec le projet de territoire, la planification locale et les politiques de gestion de l'eau. Le GIP doit rester cohérent avec les choix collectifs du bassin de Limay.</p>`},
+  "territory-residents":{title:"Le rôle des habitants",body:`<p>Les choix agricoles peuvent modifier les paysages, les usages de l'eau ou la place des différentes productions. Le POC prévoit donc d'intégrer les questions des habitants plutôt que de les traiter après coup.</p>`},
+  "territory-cosmetia":{title:"Le rôle de Cosmétia",body:`<p>Cosmétia commence par réduire ses propres consommations, finance une partie de l'expérimentation et s'engage à maintenir le partenariat avec les producteurs. L'entreprise n'arrive pas avec une solution déjà écrite : elle co-investit dans sa construction.</p>`}
+};
+
+const infoModal=document.getElementById('infoModal');
+const infoTitle=document.getElementById('infoTitle');
+const infoBody=document.getElementById('infoBody');
+function openInfo(key){
+  const item=infoContent[key];
+  if(!item || !infoModal) return;
+  infoTitle.textContent=item.title;
+  infoBody.innerHTML=item.body;
+  infoModal.classList.add('open');
+  infoModal.setAttribute('aria-hidden','false');
+}
+function closeInfo(){
+  if(!infoModal) return;
+  infoModal.classList.remove('open');
+  infoModal.setAttribute('aria-hidden','true');
+}
+document.querySelectorAll('[data-info]').forEach(card=>{
+  card.addEventListener('click',()=>openInfo(card.dataset.info));
+  card.addEventListener('keydown',e=>{
+    if(e.key==='Enter' || e.key===' '){e.preventDefault();openInfo(card.dataset.info);}
+  });
+});
+infoModal?.querySelector('.info-close')?.addEventListener('click',closeInfo);
+infoModal?.addEventListener('click',e=>{if(e.target===infoModal) closeInfo();});
+
 
 const modal=document.getElementById('modal');
 const modalImg=document.getElementById('modalImg');
@@ -1424,7 +1549,7 @@ document.querySelectorAll('.story-card img,.image-frame img').forEach(img=>{
 modal.addEventListener('click',(e)=>{
   if(e.target===modal || e.target.tagName==='BUTTON') modal.classList.remove('open');
 });
-document.addEventListener('keydown',e=>{if(e.key==='Escape') modal.classList.remove('open')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){modal.classList.remove('open');closeInfo();}});
 
 
 function showPaperPage(which){
