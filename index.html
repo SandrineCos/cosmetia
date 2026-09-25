@@ -92,6 +92,25 @@ button{font:inherit}
 }
 .process-node b{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--forest);color:white;margin-bottom:9px}
 .process-node p{color:var(--muted);font-size:.92rem;margin-bottom:0}
+.process-clickable{
+  cursor:pointer;
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.process-clickable:hover,
+.process-clickable:focus{
+  transform:translateY(-3px);
+  box-shadow:0 12px 26px rgba(21,79,55,.14);
+  border-color:var(--water);
+  outline:none;
+}
+.process-more{
+  display:inline-block;
+  margin-top:13px;
+  font-size:.78rem;
+  font-weight:900;
+  color:var(--forest);
+  border-bottom:1px solid rgba(21,79,55,.28);
+}
 
 .info-modal{
   display:none;position:fixed;inset:0;z-index:220;background:rgba(9,35,25,.78);
@@ -958,6 +977,7 @@ footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);f
           <button class="btn" type="button" onclick="document.getElementById('story-six').scrollIntoView({behavior:'smooth', block:'start'})">Découvrir notre ambition pour nos territoires</button>
           <button class="btn alt" data-page="join">Rejoindre le projet</button>
           <button class="btn blue" data-page="press">Lire Le Réveil du Bassin</button>
+          <button class="btn alt" type="button" onclick="showPage('territory'); setTimeout(()=>document.getElementById('vos-remarques')?.scrollIntoView({behavior:'smooth',block:'start'}),80)">Donnez votre avis</button>
         </div>
       </div>
 
@@ -1113,10 +1133,26 @@ footer{padding:32px 0 45px;border-top:1px solid var(--line);color:var(--muted);f
       </div>
 
       <div class="process-flow" aria-label="Les quatre étapes du GIP Cos-Éco">
-        <div class="process-node"><b>1</b><h3>Observer</h3><p>Mesurer les besoins en eau et identifier les périodes les plus sensibles.</p></div>
-        <div class="process-node"><b>2</b><h3>Expérimenter</h3><p>Tester sur des parcelles pilotes des espèces, variétés, niveaux d'irrigation et pratiques culturales.</p></div>
-        <div class="process-node"><b>3</b><h3>Comparer</h3><p>Évaluer ensemble l'eau consommée, le rendement, la qualité, la viabilité économique et les effets territoriaux.</p></div>
-        <div class="process-node"><b>4</b><h3>Déployer</h3><p>Retenir les solutions qui fonctionnent réellement et organiser leur diffusion dans la filière.</p></div>
+        <div class="process-node process-clickable" tabindex="0" role="button" data-info="gip-observer">
+          <b>1</b><h3>Observer</h3>
+          <p>Mesurer les besoins en eau et identifier les périodes les plus sensibles.</p>
+          <span class="process-more">Voir le détail +</span>
+        </div>
+        <div class="process-node process-clickable" tabindex="0" role="button" data-info="gip-experimenter">
+          <b>2</b><h3>Expérimenter</h3>
+          <p>Tester sur des parcelles pilotes des espèces, variétés, niveaux d'irrigation et pratiques culturales.</p>
+          <span class="process-more">Voir le détail +</span>
+        </div>
+        <div class="process-node process-clickable" tabindex="0" role="button" data-info="gip-comparer">
+          <b>3</b><h3>Comparer</h3>
+          <p>Évaluer ensemble l'eau consommée, le rendement, la qualité, la viabilité économique et les effets territoriaux.</p>
+          <span class="process-more">Voir le détail +</span>
+        </div>
+        <div class="process-node process-clickable" tabindex="0" role="button" data-info="gip-deployer">
+          <b>4</b><h3>Déployer</h3>
+          <p>Retenir les solutions qui fonctionnent réellement et organiser leur diffusion dans la filière.</p>
+          <span class="process-more">Voir le détail +</span>
+        </div>
       </div>
 
       <div class="band">
@@ -1804,6 +1840,55 @@ const infoContent={
   "territory-residents":{title:"Le rôle des habitants",body:`<p>Les choix agricoles peuvent modifier les paysages, les usages de l'eau ou la place des différentes productions. Le POC prévoit donc d'intégrer les questions des habitants plutôt que de les traiter après coup.</p>`},
   "territory-cosmetia":{title:"Le rôle de Cosmétia",body:`<p>Cosmétia commence par réduire ses propres consommations, finance une partie de l'expérimentation et s'engage à maintenir le partenariat avec les producteurs. L'entreprise n'arrive pas avec une solution déjà écrite : elle co-investit dans sa construction.</p>`}
 };
+
+
+Object.assign(infoContent,{
+  "gip-observer":{
+    title:"1. Observer",
+    body:`<p>Avant de tester une solution, le GIP commence par établir une situation de référence commune.</p>
+          <ul>
+            <li>mesurer les volumes d'eau utilisés par culture et par période ;</li>
+            <li>identifier les moments où les plantes sont les plus sensibles au manque d'eau ;</li>
+            <li>croiser les données agricoles avec les contraintes du bassin ;</li>
+            <li>définir avec les agriculteurs les indicateurs qui comptent réellement pour eux.</li>
+          </ul>
+          <p>Cette étape permet de savoir <strong>où agir en priorité</strong> et d'éviter de tester des solutions sans point de comparaison.</p>`
+  },
+  "gip-experimenter":{
+    title:"2. Expérimenter",
+    body:`<p>Les partenaires passent ensuite à des essais en conditions réelles, sur des parcelles pilotes.</p>
+          <ul>
+            <li>tester différentes espèces ou variétés ;</li>
+            <li>comparer plusieurs niveaux d'irrigation ;</li>
+            <li>essayer des pratiques de sol ou de couverture végétale ;</li>
+            <li>associer une parcelle test à une situation témoin lorsque c'est pertinent.</li>
+          </ul>
+          <p>L'objectif n'est pas de démontrer qu'une solution fonctionne à tout prix, mais de <strong>mesurer ce qui marche, ce qui ne marche pas et dans quelles conditions</strong>.</p>`
+  },
+  "gip-comparer":{
+    title:"3. Comparer",
+    body:`<p>Une solution n'est intéressante que si elle réduit l'eau sans créer un autre problème. Les résultats sont donc regardés sous plusieurs angles.</p>
+          <ul>
+            <li>quantité d'eau consommée ;</li>
+            <li>rendement agricole ;</li>
+            <li>qualité des ingrédients pour Cosmétia ;</li>
+            <li>coût et viabilité économique pour l'exploitation ;</li>
+            <li>effets éventuels sur les sols, les paysages et le territoire.</li>
+          </ul>
+          <p>Cette comparaison permet aux partenaires de décider ensemble quelles solutions méritent d'être poursuivies.</p>`
+  },
+  "gip-deployer":{
+    title:"4. Déployer",
+    body:`<p>Les solutions qui ont fait leurs preuves peuvent ensuite être proposées plus largement dans la filière.</p>
+          <ul>
+            <li>formaliser les pratiques et les conditions de réussite ;</li>
+            <li>accompagner les producteurs qui souhaitent les adopter ;</li>
+            <li>partager les résultats avec les autres acteurs du bassin ;</li>
+            <li>prévoir les modalités de financement et de suivi dans la durée.</li>
+          </ul>
+          <p>Le déploiement n'est donc pas automatique : il intervient seulement après l'expérimentation et l'évaluation collective.</p>`
+  }
+});
 
 const infoModal=document.getElementById('infoModal');
 const infoTitle=document.getElementById('infoTitle');
